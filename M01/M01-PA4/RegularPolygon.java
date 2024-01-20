@@ -16,8 +16,8 @@ public class RegularPolygon {
     RegularPolygon() {
         n = 3;
         side = 1.0;
-        x = 0;
-        y = 0;
+        x = 0.0;
+        y = 0.0;
     }
 
     RegularPolygon(int numSides, double sideLength) {
