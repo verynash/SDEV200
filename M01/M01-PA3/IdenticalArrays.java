@@ -1,11 +1,12 @@
 /*
  * Name:    Zachary Barrett
- * Date:    01-29-24
+ * Date:    01-20-24
  * Program: IdenticalArrays.java
  * Purpose: This program test whether two two-
  *          dimensional arrays are "identical;"
  *          that is, they have the same contents.
  */
+
 import java.util.*;
 
 public class IdenticalArrays {

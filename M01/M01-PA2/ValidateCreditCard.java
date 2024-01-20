@@ -1,6 +1,6 @@
 /*
  * Name:    Zachary Barrett
- * Date:    01-29-24
+ * Date:    01-19-24
  * Program: ValidateCreditCard.java
  * Purpose: This program will accept a credit card number and
  *          determine whether it is valid.
