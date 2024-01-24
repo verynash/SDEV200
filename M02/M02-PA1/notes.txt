@@ -1,0 +1,5 @@
+java.util.* includes the GregorianCalendar class.
+
+get(GregorianCalendar.YEAR)
+get(GregorianCalendar.MONTH)
+get(GregorianCalendar.DAY_OF_MONTH)
