@@ -33,5 +33,6 @@ public class TestTriangle {
         System.out.println("Color: " + triangle.getColor());
         System.out.println("Filled: "  + triangle.isFilled());
 
+        input.close();
     }
 }
