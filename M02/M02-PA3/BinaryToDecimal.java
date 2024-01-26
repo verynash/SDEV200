@@ -1,7 +1,14 @@
+/*
+ * Name:    Zachary Barrett
+ * Date:    01-26-2024
+ * Program: BinaryToDecimal.java
+ * Purpose: Create class bin2Dec that returns a long (int prevents 
+ *          large numbers from being input) and throws a 
+ *          BinaryFormatException if the argument is not a 
+ *          binary number.
+ */
+
 public class BinaryToDecimal {
-    // Create class bin2Dec that returns a long (int prevents large 
-    // numbers from being input) and throws a BinaryFormatException
-    // if the argument is not a binary number.
     public static long bin2Dec(String binary) throws BinaryFormatException {
         // Initialize variables
         long bin = Long.parseLong(binary);

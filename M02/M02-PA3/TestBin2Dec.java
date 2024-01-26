@@ -1,3 +1,10 @@
+/*
+ * Name:    Zachary Barrett
+ * Date:    01-26-2024
+ * Program: TestBin2Dec.java
+ * Purpose: Test bin2Dec and the BinaryFormatException.
+ */
+
 import java.util.Scanner;
 
 public class TestBin2Dec {
