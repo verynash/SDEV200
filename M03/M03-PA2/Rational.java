@@ -1,4 +1,11 @@
-import java.math.*;
+/*
+ * Name:    Zachary Barrett
+ * Date:    02-04-2024
+ * Program: Rational.java
+ * Purpose: Modify Rational class to implement comparable.
+ */
+
+ import java.math.*;
 
 public class Rational extends Number implements Comparable<Rational> {
     // Data fields for numerator and denominator

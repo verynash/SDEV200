@@ -1,6 +1,12 @@
+/*
+ * Name:    Zachary Barrett
+ * Date:    02-04-2024
+ * Program: Circle.java
+ * Purpose: Create a class Circle that extends GeometricObject and
+ *          implements Comparable.
+ */
 
-
-public class Circle extends GeometricObject implements Comparable<Circle> {
+ public class Circle extends GeometricObject implements Comparable<Circle> {
     private double radius;
   
     public Circle() {

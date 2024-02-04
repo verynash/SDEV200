@@ -1,4 +1,11 @@
-public class TestCircleComparable {
+/*
+ * Name:    Zachary Barrett
+ * Date:    02-04-2024
+ * Program: TestCircleComparable.java
+ * Purpose: Test the class Circle.java.
+ */
+
+ public class TestCircleComparable {
     public static void main(String[] args) {
         Circle circle1 = new Circle(1);
         Circle circle2 = new Circle(1);

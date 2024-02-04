@@ -1,4 +1,11 @@
-import java.math.*;
+/*
+ * Name:    Zachary Barrett
+ * Date:    02-04-2024
+ * Program: TestRational.java
+ * Purpose: Test Rational.java.
+ */
+
+ import java.math.*;
 import java.util.*;
 
 public class TestRational {

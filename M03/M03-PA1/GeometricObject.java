@@ -1,4 +1,11 @@
-public abstract class GeometricObject {
+/*
+ * Name:    Zachary Barrett
+ * Date:    02-04-2024
+ * Program: GeometricObject.java
+ * Purpose: Create a geometric object.
+ */
+
+ public abstract class GeometricObject {
     private String color = "white";
     private boolean filled;
     private java.util.Date dateCreated;
