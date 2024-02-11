@@ -1,0 +1,10 @@
+(1) return
+(2) do
+(3) while
+// return
+/*
+do
+*/
+"do while"
+
+count should be 3
