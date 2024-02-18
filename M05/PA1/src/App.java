@@ -1,3 +1,11 @@
+/*
+ * Name:        Zachary Barrett
+ * Date:        02/18/2024
+ * Project:     Exercise 14.1
+ * Purpose:     Create a program that displays four images in a 2x2
+ *              grid pane.
+ */
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
