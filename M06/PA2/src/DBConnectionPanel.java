@@ -7,6 +7,7 @@
 
 import java.sql.DriverManager;
 
+import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -45,8 +46,11 @@ public class DBConnectionPanel extends BorderPane {
     pane.add(tfUser, 1, 2);
     pane.add(lbPass, 0, 3);
     pane.add(tfPass, 1, 3);
+    pane.add(btnConnectToDatabase, 1, 4);
     setCenter(pane);
-    setBottom(btnConnectToDatabase);
+    GridPane.setHalignment(btnConnectToDatabase, HPos.RIGHT);
+    
+
 
     btnConnectToDatabase.setOnMouseClicked(e -> {
       try {

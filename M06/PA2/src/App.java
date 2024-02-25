@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application { 
@@ -79,9 +78,12 @@ public class App extends Application {
     public void DatabaseConnection(String JDBC, String URL) {
         DBConnectionPanel dbConnectionPanel = new DBConnectionPanel(JDBC, URL);
         Button btnCloseDialog = new Button("Close Dialog");
-        VBox vBox = new VBox(dbConnectionPanel, btnCloseDialog);
+        GridPane gridPane = new GridPane();
+        gridPane.add(dbConnectionPanel, 0, 0);
+        gridPane.add(btnCloseDialog, 0, 1);
+        GridPane.setHalignment(btnCloseDialog, HPos.CENTER);
 
-        Scene scene2 = new Scene(vBox);
+        Scene scene2 = new Scene(gridPane);
         Stage stage = new Stage();
         stage.setTitle("Connect to DB");
         stage.setScene(scene2);
