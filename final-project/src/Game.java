@@ -22,12 +22,13 @@ public class Game extends Category {
 
   // Primary constructor
   public Game(String name, String developer, String releaseDate, 
-              int rating, String description) {
+              int rating, String description, String imageURL) {
     this.name = name;
     this.developer = developer;
     this.releaseDate = releaseDate;
     this.rating = rating;
     this.description = description;
+    this.imageURL = imageURL;
   }
 
   /* GETTERS */
