@@ -21,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -39,7 +40,7 @@ public class App extends Application {
         Game cyberpunk2077 = new Game("Cyberpunk 2077: Phantom Liberty", "CD Projekt Red", "September 26, 2023", 86, "Action RPG", "./images/cyberpunk2077.jpg");
         Game finalFantasy16 = new Game("Final Fantasy XVI", "Square Enix", "June 22, 2023", 87, "Action RPG", "./images/finalFantasy16.png");
         Game hiFiRush = new Game("Hi-Fi Rush", "Tango Gameworks / Bethesda Softworks", "January 25, 2023", 87, "Platform Fighter", "./images/hiFiRush.jpg");
-        Game liesOfP = new Game("Lies of P", "Round 8 Studio / Neowiz", "September  19, 2023", 80, "Adventure RPG", "./images/liesOfP.jpg");
+        Game liesOfP = new Game("Lies of P", "Round 8 Studio / Neowiz", "September 19, 2023", 80, "Adventure RPG", "./images/liesOfP.jpg");
         Game deadSpace = new Game("Dead Space", "Motive Studios / Electronic Arts", "January 27, 2023", 89, "Survival Horror", "./images/deadSpace.jpg");
         Game diablo4 = new Game("Diablo IV", "Blizzard Entertainment", "June 6, 2023", 86, "Hack and Slash Adventure RPG", "./images/diablo4.png");
         Game forzaMotorsport = new Game("Forza Motorsport", "Turn 10 Studios / XBOX Game Studios", "October 10, 2023", 84, "Racing", "./images/forzaMotorsport.png");
@@ -144,7 +145,7 @@ public class App extends Application {
             String categoryName = categories.get(i).getCategoryName();
             Label lbCategoryName = new Label(categoryName);
             lbCategoryName.setFont(new Font("Arial", 16)); // Change font for header
-            lbCategoryName.setStyle("-fx-font-weight: bold");
+            lbCategoryName.setStyle("-fx-font-weight: bold"); // Make text bold
             String gameName = categories.get(i).getWinner().getGameName();
             Label lbGameName = new Label(gameName);
             lbGameName.setStyle("-fx-font-weight: bold; -fx-font-size: 12");
@@ -156,9 +157,8 @@ public class App extends Application {
             // Create button and handle click
             Button btnNominees = new Button("Nominees");
             btnNominees.setOnMouseClicked(e -> {
-                CreateNomineeScene(currentCategory);
+                CreateNomineeScene(currentCategory, primaryStage);
                 primaryStage.close();
-                System.out.println(currentCategory);
             });
             
             // Add image, labels, and button to GridPane
@@ -201,28 +201,101 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    public void CreateNomineeScene(Category category) {
+    public void CreateNomineeScene(Category category, Stage stage) {
+        // Create stage
+        Stage gameStage = new Stage();
+
         // Create pane
         BorderPane borderPane = new BorderPane();
 
         // Create header
-        Label lbCategory = new Label(category.getCategoryName());
-        Label lbCategoryDescription = new Label(category.getCategoryDescription());
+        VBox headerVBox = new VBox();
+        Label lbCategory = new Label(category.getCategoryName()); 
+        Label lbCategoryDesc = new Label(category.getCategoryDescription());
+        
+        // Style header
+        lbCategory.setFont(new Font("arial", 28));
+        lbCategory.setStyle("-fx-font-weight: bold");
+        lbCategoryDesc.setFont(new Font("arial", 16));
+        lbCategoryDesc.setStyle("-fx-font-style: italic");
+        
+        // Place header labels in VBox and align
+        headerVBox.getChildren().addAll(lbCategory, lbCategoryDesc);
+        headerVBox.setAlignment(Pos.CENTER);
 
         // Create games hbox
-        HBox gamesHBox = new HBox();
+        HBox gamesHBox = new HBox(12);
         // Loop through games and create a GridPane for each
         for (int i = 0; i < category.games.size(); i++) {
-            
+            GridPane gridPane = new GridPane();
+            Game game = category.games.get(i);
+
+            // Extract attributes from current Game
+            String imageURL =  game.getImageURL();
+            String name = game.getGameName();
+            String developer = game.getDeveloper();
+            String releaseDate = game.getReleaseDate();
+            int rating = game.getRating();
+            String description = game.getDescription();
+
+            // Place attributes in labels and imageViews
+            Image image = new Image(imageURL);
+            ImageView imageView = new ImageView(image);
+            Label lbName = new Label(name);
+            Label lbDeveloper = new Label("Created by: " + developer);
+            Label lbReleaseDate = new Label("Released: " + releaseDate);
+            Label lbRating = new Label("Metacritic Rating: " + rating);
+            Label lbDescription = new Label("Genre: " + description);
+
+            // Style imageViews
+            imageView.setFitHeight(250);
+            imageView.setPreserveRatio(true);
+            GridPane.setHalignment(imageView, HPos.CENTER);
+
+            // Add some styling to labels
+            lbName.setFont(new Font("Arial", 12));
+            lbName.setStyle("-fx-font-weight: bold");
+            lbName.setWrapText(true);
+            GridPane.setHalignment(lbName, HPos.CENTER);
+            lbDeveloper.setWrapText(true);
+
+
+            // Place labels and imageViews into Gridbox
+            gridPane.add(imageView, i, 0);
+            gridPane.add(lbName, i, 1);
+            gridPane.add(lbDeveloper, i, 2);
+            gridPane.add(lbReleaseDate, i, 3);
+            gridPane.add(lbRating, i, 4);
+            gridPane.add(lbDescription, i, 5);
+
+            // Add GridPane to HBox
+            gamesHBox.getChildren().add(gridPane);
+
         }
 
+        // Create return button
+        Button btnReturn = new Button("WINNERS");
+        btnReturn.setOnMouseClicked(e -> {
+            start(stage);
+            gameStage.close();
+        });
+        
+        // Add panes to BorderPane
+        borderPane.setTop(headerVBox);
+        borderPane.setCenter(gamesHBox);
+        borderPane.setBottom(btnReturn);
 
-        // Create Stage and Scene
+        // Fix alignments and aesthetics
+        BorderPane.setAlignment(btnReturn, Pos.CENTER);
+        BorderPane.setMargin(gamesHBox, new Insets(12, 8, 20, 8));
+        BorderPane.setMargin(btnReturn, new Insets(16));
+
+        // Create Scene
         Scene gameScene = new Scene(borderPane);
-        Stage gameStage = new Stage();
         gameStage.setTitle(category.getCategoryName());
         gameStage.setScene(gameScene);
         gameStage.show();        
+
     }
 
     public static void main(String[] args) throws Exception {
