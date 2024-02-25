@@ -15,6 +15,7 @@ public class Game extends Category {
   private int rating;
   private String description;
   private ArrayList<Comment> comments = new ArrayList<Comment>();
+  private String imageURL = "";
 
   // Default constructor
   public Game() {}
@@ -50,6 +51,10 @@ public class Game extends Category {
     return description;
   }
 
+  public String getImageURL() {
+    return this.imageURL;
+  }
+
   /* SETTERS */
   public void setGameName(String name) {
     this.name = name;
@@ -69,6 +74,10 @@ public class Game extends Category {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public void setImageURL(String imageURL) {
+    this.imageURL = imageURL;
   }
 
   // Add a comment to the ArrayList<> comments
