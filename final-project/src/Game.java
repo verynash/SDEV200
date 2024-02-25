@@ -15,7 +15,7 @@ public class Game extends Category {
   private int rating;
   private String description;
   private ArrayList<Comment> comments = new ArrayList<Comment>();
-  private String imageURL = "";
+  protected String imageURL = "";
 
   // Default constructor
   public Game() {}
