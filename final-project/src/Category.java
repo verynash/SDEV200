@@ -5,12 +5,14 @@
  * variables, and methods.
  */
 
+import java.util.ArrayList;
+
 public class Category {
   // Initialize variables
   private String categoryName;
   private String categoryDescription;
   private Game categoryWinner;
-
+  ArrayList<Game> games = new ArrayList<>();
   // Default constructor
   public Category() {}
 
@@ -38,6 +40,10 @@ public class Category {
     return categoryWinner;
   }
 
+  public ArrayList<Game> getGames() {
+    return this.games;
+  }
+
   /* SETTERS */
   public void setCategoryName(String name) {
     this.categoryName = name;
@@ -51,10 +57,16 @@ public class Category {
     this.categoryWinner = game;
   }
 
+  public void addGames(Game... args) {
+    for (Game arg : args) {
+      games.add(arg);
+    }
+  }
   // Override default toString method.
   @Override
   public String toString() {
     return "Category: " + categoryName + "\nDescription: " 
-      + categoryDescription + "\nWinner: " + categoryWinner.getGameName();
+      + categoryDescription + "\nWinner: " + categoryWinner.getGameName()
+      + "\n";
   }
 }
