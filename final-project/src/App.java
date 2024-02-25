@@ -9,8 +9,20 @@
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -72,11 +84,11 @@ public class App extends Application {
         bestArtDirection.addGames(alanWake2, hiFiRush, legendOfZelda, liesOfP, superMarioBrosWonder);
         Category bestAudioDesign = new Category("Best Audio Design", "Recognizing the best in-game audio and sound design.", hiFiRush);
         bestAudioDesign.addGames(alanWake2, deadSpace, hiFiRush, spiderman2, residentEvil4);
-        Category innovationInAccessibility = new Category("Innovation in Accessibility", "Recognizing software and/or hardware that is pushing the medium forward by adding features, technology and content to help games be played and enjoyed by an even wider audience.", forzaMotorsport);
+        Category innovationInAccessibility = new Category("Innovation in Accessibility", "Recognizing software and/or hardware that is pushing the medium forward by adding features, technology and content.", forzaMotorsport);
         innovationInAccessibility.addGames(diablo4, forzaMotorsport, hiFiRush, spiderman2, mortalKombat1, streetFighter6);
         Category bestActionGame = new Category("Best Action Game", "For the best game in the action genre focused primarily on combat.", armoredCore6);
         bestActionGame.addGames(armoredCore6, deadIsland2, ghostrunner2, hiFiRush, remnant2);
-        Category bestRPG = new Category("Best Role Playing Game", "For the best game designed with rich player character customization and progression, including massively multiplayer experiences.", baldursGate3);
+        Category bestRPG = new Category("Best Role Playing Game", "For the best game designed with rich player character customization and progression.", baldursGate3);
         bestRPG.addGames(baldursGate3, finalFantasy16, liesOfP, seaOfStars, starfield);
         Category bestFightingGame = new Category("Best Fighting Game", "For the best game designed primarily around head-to-head combat.", streetFighter6);
         bestFightingGame.addGames(streetFighter6, godOfRock, mortalKombat1, nickAllStarBrawl2, pocketBravery);
@@ -104,17 +116,115 @@ public class App extends Application {
         categories.add(mostAnticipatedGame);
 
         // Create pane
-        GridPane pane = new GridPane();
-        for (Category category : categories) {
+        BorderPane mainPane = new BorderPane();
+        FlowPane pane = new FlowPane();
+        pane.setPrefSize(1000, 750);
+
+        
+        // For each category, create a GridPane that will be placed
+        // within the FlowPane
+        for (int i = 0; i < categories.size(); i++) {
+            Category currentCategory = categories.get(i);
+
+            // Create Borderpane
+            BorderPane borderPane = new BorderPane();
+            
+            // Create GridPane
+            GridPane gridPane = new GridPane();
+            gridPane.setPrefSize(250, 250);
+            gridPane.setPadding(new Insets(12));
+            
+            // Create imageView for category winner
+            Image image = new Image(categories.get(i).categoryWinner.imageURL);
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(100); // Set a max height
+            imageView.setPreserveRatio(true); // Maintain image ratio
+            
+            // Create labels
+            String categoryName = categories.get(i).getCategoryName();
+            Label lbCategoryName = new Label(categoryName);
+            lbCategoryName.setFont(new Font("Arial", 16)); // Change font for header
+            lbCategoryName.setStyle("-fx-font-weight: bold");
+            String gameName = categories.get(i).getWinner().getGameName();
+            Label lbGameName = new Label(gameName);
+            lbGameName.setStyle("-fx-font-weight: bold; -fx-font-size: 12");
+            String description = categories.get(i).getCategoryDescription();
+            Label lbDescription = new Label(description);
+            lbDescription.setWrapText(true); // Wrap description text
+            lbDescription.setTextAlignment(TextAlignment.CENTER); // Center text
+            
+            // Create button and handle click
+            Button btnNominees = new Button("Nominees");
+            btnNominees.setOnMouseClicked(e -> {
+                CreateNomineeScene(currentCategory);
+                primaryStage.close();
+                System.out.println(currentCategory);
+            });
+            
+            // Add image, labels, and button to GridPane
+            gridPane.add(lbCategoryName, 0, 0);
+            gridPane.add(imageView, 0, 1);
+            gridPane.add(lbGameName, 0, 2);
+            gridPane.add(lbDescription, 0, 3);
+            
+            // Align the image and labels
+            GridPane.setHalignment(lbCategoryName, HPos.CENTER);
+            GridPane.setHalignment(imageView, HPos.CENTER);
+            GridPane.setHalignment(lbGameName, HPos.CENTER);
+            GridPane.setHalignment(lbDescription, HPos.CENTER);
+            GridPane.setHalignment(btnNominees, HPos.CENTER);
+            
+            // Add GridPane to BorderPane, add BorderPane to FlowPane
+            borderPane.setCenter(gridPane);
+            borderPane.setBottom(btnNominees);
+            pane.getChildren().add(borderPane);
+            
+            // Align the buttons to feel more natural
+            BorderPane.setMargin(gridPane, new Insets(0, 0, -42, 0));
+            BorderPane.setAlignment(btnNominees, Pos.CENTER);
+        }
+        
+        // Create Header and style
+        Label lbGOTY = new Label("Game of the Year Awards");
+        lbGOTY.setFont(new Font("Arial", 28));
+        lbGOTY.setStyle("-fx-font-weight: bold");
+
+        // Place panes into mainPane
+        mainPane.setTop(lbGOTY);
+        mainPane.setCenter(pane);
+        BorderPane.setAlignment(lbGOTY, Pos.CENTER);
+        
+        // Create scene
+        Scene scene = new Scene(mainPane);
+        primaryStage.setTitle("Game of the Year Awards");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void CreateNomineeScene(Category category) {
+        // Create pane
+        BorderPane borderPane = new BorderPane();
+
+        // Create header
+        Label lbCategory = new Label(category.getCategoryName());
+        Label lbCategoryDescription = new Label(category.getCategoryDescription());
+
+        // Create games hbox
+        HBox gamesHBox = new HBox();
+        // Loop through games and create a GridPane for each
+        for (int i = 0; i < category.games.size(); i++) {
             
         }
 
-        // Create scene
-        Scene scene = new Scene(pane);
-        primaryStage.setTitle("Game of the Year Awards");
-        primaryStage.setScene(scene);
-        primaryStage.show();;
+
+        // Create Stage and Scene
+        Scene gameScene = new Scene(borderPane);
+        Stage gameStage = new Stage();
+        gameStage.setTitle(category.getCategoryName());
+        gameStage.setScene(gameScene);
+        gameStage.show();        
     }
+
     public static void main(String[] args) throws Exception {
         launch(args);
     }

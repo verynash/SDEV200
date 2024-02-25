@@ -11,7 +11,7 @@ public class Category {
   // Initialize variables
   private String categoryName;
   private String categoryDescription;
-  private Game categoryWinner;
+  protected Game categoryWinner;
   ArrayList<Game> games = new ArrayList<>();
   // Default constructor
   public Category() {}
