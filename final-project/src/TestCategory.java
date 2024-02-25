@@ -9,9 +9,9 @@ public class TestCategory {
   public static void main(String[] args) {
     // Initialize two Game classes for testing
     Game sts = new Game("Slay the Spire", "MegaCrit", 
-      "2019", 10, "Amazing description");
+      "2019", 10, "Amazing description", "");
     Game bg3 = new Game("Baldurs Gate 3", "Larian", 
-      "2023", 10, "Game of the year");
+      "2023", 10, "Game of the year", "./images/baldursGate3.jpg");
 
     /* Test the default constructor and various methods, utilizing
        the Game class */

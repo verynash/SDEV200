@@ -21,7 +21,7 @@ public class TestGame {
     
     /* Test the primary constructor */
     Game bg3 = new Game("Baldurs Gate 3", "Larian", 
-    "2023", 10, "Game of the year");
+    "2023", 10, "Game of the year", "./images/baldursGate3.jpg");
     Comment bg3Comment = new Comment("ice9", "masterpiece *chef's kiss*");
     bg3.addComment(bg3Comment);
     
