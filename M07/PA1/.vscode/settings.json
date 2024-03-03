@@ -1,0 +1,6 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "c:\\Users\\sbzch\\OneDrive\\Desktop\\school\\SDEV-200\\7-week\\javax.servlet.jar"
+  ]
+}
