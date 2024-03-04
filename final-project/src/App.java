@@ -15,6 +15,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -259,14 +261,22 @@ public class App extends Application {
             GridPane.setHalignment(lbName, HPos.CENTER);
             lbDeveloper.setWrapText(true);
 
+            // Create Comments button
+            Button commentButton = new Button("Comments");
+            commentButton.setOnMouseClicked(e -> {
+                CreateCommentScene(game);
+            });
 
-            // Place labels and imageViews into Gridbox
+
+
+            // Place labels and imageViews and button into Gridbox
             gridPane.add(imageView, i, 0);
             gridPane.add(lbName, i, 1);
             gridPane.add(lbDeveloper, i, 2);
             gridPane.add(lbReleaseDate, i, 3);
             gridPane.add(lbRating, i, 4);
             gridPane.add(lbDescription, i, 5);
+            gridPane.add(commentButton, i, 6);
 
             // Add GridPane to HBox
             gamesHBox.getChildren().add(gridPane);
@@ -296,6 +306,81 @@ public class App extends Application {
         gameStage.setScene(gameScene);
         gameStage.show();        
 
+    }
+
+    public void CreateCommentScene(Game game) {
+        // Create stage
+        Stage commentStage = new Stage();
+
+        // Create pane
+        BorderPane borderPane = new BorderPane();
+
+        // Create Header
+        Label lbGame = new Label(game.getGameName());
+
+        // Style Header
+        lbGame.setFont(new Font("arial", 28));
+        lbGame.setStyle("fx-font-weight: bold");
+
+        // Create HBox for comments
+        VBox commentsVBox = new VBox();
+
+        // Create comments
+        for (int i = 0; i < game.comments.size(); i++) {
+            if (game.comments.get(i) == null)
+                break;
+            VBox vBox = new VBox();
+            Comment comment = game.comments.get(i);
+
+            // Create label for comment attributes
+            Label lbUser = new Label(comment.getUser());
+            Label lbComment = new Label(comment.getComment());
+
+            // Add labels to VBox
+            vBox.getChildren().addAll(lbUser, lbComment);
+
+            // Add Vbox to VBox
+            commentsVBox.getChildren().add(vBox);
+        }
+
+        // Create GridPane for adding comments
+        GridPane gridPane = new GridPane();
+
+        // Create form for adding a comment
+        Label lbUser = new Label("Username");
+        TextField tfUser = new TextField("Enter username");
+        Label lbComment = new Label("Comment");
+        TextArea taComment = new TextArea("Enter your comment here: ");
+        
+        // Create and handle addCommentButton
+        Button addCommentButton = new Button("Add Comment");
+        addCommentButton.setOnMouseClicked(e -> {
+            Comment comment = new Comment(tfUser.getText(), taComment.getText());
+            game.addComment(comment);
+            commentStage.close();
+            CreateCommentScene(game);
+        });
+
+        // Add form and button to GridPane
+        gridPane.add(lbUser, 0, 0);
+        gridPane.add(tfUser, 0, 1);
+        gridPane.add(lbComment, 0, 2);
+        gridPane.add(taComment, 0, 3);
+        gridPane.add(addCommentButton, 0, 4);       
+
+        // Add panes to BorderPane
+        borderPane.setTop(lbGame);
+        borderPane.setCenter(commentsVBox);
+        borderPane.setBottom(gridPane);
+
+        // Style BorderPane
+        BorderPane.setMargin(commentsVBox, new Insets(8, 0, 8, 0));
+
+        // Create Scene
+        Scene commentScene = new Scene(borderPane);
+        commentStage.setTitle(game.getGameName());
+        commentStage.setScene(commentScene);
+        commentStage.show();
     }
 
     public static void main(String[] args) throws Exception {
